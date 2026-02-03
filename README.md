@@ -18,8 +18,8 @@
 
 ## Setup
 1. Get API key from [Pexels](https://www.pexels.com/api/)
-2. Create file `keys.properties`
-3. Add there `API_KEY=` with your key
+2. Create file `keys.properties` in project folder
+3. Add there `apiKey=` with your key
 
 ## Project Status
 #### Done:
