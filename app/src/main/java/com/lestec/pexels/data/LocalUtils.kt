@@ -39,7 +39,7 @@ interface PhotosDao {
     suspend fun getPhotos(): List<PhotoLocal>
 
     @Query("SELECT * FROM PhotoLocal WHERE id = :id")
-    suspend fun getPhoto(id: Long): List<PhotoLocal>
+    suspend fun getPhoto(id: Long): PhotoLocal?
 
     @Upsert
     suspend fun savePhoto(photo: PhotoLocal)

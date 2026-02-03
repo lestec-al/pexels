@@ -7,7 +7,16 @@ data class Result<out T> (
     val errorType: ErrorType
 )
 
-interface HttpRepo {
+interface FileDownloader {
+    suspend fun call(url: String)
+}
+
+interface Repo {
+    suspend fun getPhotos(): List<Photo>
+    suspend fun getPhoto(id: Long): Photo?
+    suspend fun savePhoto(photo: Photo)
+    suspend fun deletePhoto(id: Long)
+
     suspend fun getFeaturedCollections(page: Int?, perPage: Int?): Result<Collections>
     suspend fun getCuratedPhotos(page: Int?, perPage: Int?): Result<Photos>
     suspend fun getSearchedPhotos(
@@ -15,17 +24,4 @@ interface HttpRepo {
         page: Int?,
         perPage: Int?
     ): Result<Photos>
-    suspend fun downloadFile(url: String)
 }
-
-interface LocalRepo {
-    suspend fun getPhotos(): List<Photo>
-    suspend fun getPhoto(id: Long): Photo?
-    suspend fun savePhoto(photo: Photo)
-    suspend fun deletePhoto(id: Long)
-}
-
-data class Repo(
-    val http: HttpRepo,
-    val local: LocalRepo
-)

@@ -14,12 +14,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.lestec.pexels.R
-import com.lestec.pexels.ui.MainViewModel
+import com.lestec.pexels.ui.screenHome.HomeViewModel
 import com.lestec.pexels.ui.theme.DarkGrayOnLight
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchField(viewModel: MainViewModel) {
+fun SearchField(viewModel: HomeViewModel) {
     val searchText = stringResource(R.string.search)
 
     TopSearchBar(

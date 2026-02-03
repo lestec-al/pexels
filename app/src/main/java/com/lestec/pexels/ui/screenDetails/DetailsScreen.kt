@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.lestec.pexels.R
 import com.lestec.pexels.domain.Photo
-import com.lestec.pexels.ui.MainViewModel
 import com.lestec.pexels.ui.screenDetails.components.IconSelectableButton
 import com.lestec.pexels.ui.screenDetails.components.IconTextButton
 import org.koin.androidx.compose.koinViewModel
@@ -39,7 +38,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun DetailsScreen(
     photo: Photo,
-    viewModel: MainViewModel = koinViewModel()
+    viewModel: DetailsViewModel = koinViewModel()
 ) {
     val imagePlaceholder = painterResource(R.drawable.empty_image)
     val onBackDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher

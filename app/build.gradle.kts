@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
+import java.io.FileInputStream
 
 plugins {
     alias(libs.plugins.android.application)
@@ -12,6 +14,12 @@ android {
     namespace = "com.lestec.pexels"
     compileSdk = 36
 
+    android.buildFeatures.buildConfig = true
+
+    val apiKey: String = Properties().also {
+        it.load(FileInputStream(rootProject.file("keys.properties")))
+    }.getProperty("apiKey")
+
     defaultConfig {
         applicationId = "com.lestec.pexels"
         minSdk = 26
@@ -20,6 +28,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_KEY", apiKey)
     }
 
     buildTypes {

@@ -19,7 +19,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.lestec.pexels.R
 import com.lestec.pexels.domain.Photo
-import com.lestec.pexels.ui.MainViewModel
 import com.lestec.pexels.ui.components.ImagesGrid
 import com.lestec.pexels.ui.screenHome.components.FeaturedRow
 import com.lestec.pexels.ui.screenHome.components.SearchField
@@ -29,7 +28,7 @@ import org.koin.androidx.compose.koinViewModel
 fun HomeScreen(
     onImageClick: (Photo) -> Unit,
     bottomBar: @Composable () -> Unit,
-    viewModel: MainViewModel = koinViewModel()
+    viewModel: HomeViewModel = koinViewModel()
 ) {
     Scaffold(
         topBar = {
@@ -41,12 +40,10 @@ fun HomeScreen(
                 FeaturedRow(viewModel)
                 if (viewModel.isLoading) {
                     LinearProgressIndicator(
-                        progress = { viewModel.progress },
                         modifier = Modifier.fillMaxWidth(),
                         color = MaterialTheme.colorScheme.primary,
                         trackColor = MaterialTheme.colorScheme.surface,
-                        gapSize = 0.dp,
-                        drawStopIndicator = {}
+                        gapSize = 0.dp
                     )
                 }
             }

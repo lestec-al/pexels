@@ -7,6 +7,7 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import com.lestec.pexels.domain.Photo
 import com.lestec.pexels.ui.components.BottomBar
+import com.lestec.pexels.ui.screenBookmarks.BookmarksScreen
 import com.lestec.pexels.ui.screenDetails.DetailsScreen
 import com.lestec.pexels.ui.screenHome.HomeScreen
 

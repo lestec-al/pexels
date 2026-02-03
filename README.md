@@ -18,8 +18,8 @@
 
 ## Setup
 1. Get API key from [Pexels](https://www.pexels.com/api/)
-2. Open `app/src/main/java/com/lestec/pexels/data/HttpUtils.kt`
-3. Replace `"YOUR_API_KEY_HERE"` with your key
+2. Create file `keys.properties`
+3. Add there `API_KEY=` with your key
 
 ## Project Status
 #### Done:
@@ -37,5 +37,3 @@
 - Image zoom gestures
 - Minor UI inconsistencies (e.g., fonts)
 - Downloading picture issues
-
-*Note: This project was completed within a 3-day timeframe, focusing on core functionality and architecture.*

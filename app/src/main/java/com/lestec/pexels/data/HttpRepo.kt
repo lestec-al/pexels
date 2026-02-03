@@ -1,12 +1,8 @@
 package com.lestec.pexels.data
 
-import android.app.DownloadManager
-import android.content.Context
-import android.os.Environment
-import com.lestec.pexels.domain.Photos
-import com.lestec.pexels.domain.ErrorType
 import com.lestec.pexels.domain.Collections
-import com.lestec.pexels.domain.HttpRepo
+import com.lestec.pexels.domain.ErrorType
+import com.lestec.pexels.domain.Photos
 import com.lestec.pexels.domain.Result
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -17,12 +13,8 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpHeaders
 import io.ktor.http.isSuccess
 import kotlinx.io.IOException
-import androidx.core.net.toUri
 
-class HttpRepoImpl(
-    private val client: HttpClient,
-    private val context: Context
-) : HttpRepo {
+class HttpRepo(private val client: HttpClient) {
 
     private suspend inline fun <reified T> makeRequest(block: () -> HttpResponse?): Result<T> {
         return try {
@@ -44,7 +36,7 @@ class HttpRepoImpl(
         }
     }
 
-    override suspend fun getFeaturedCollections(
+    suspend fun getFeaturedCollections(
         page: Int?,
         perPage: Int?
     ): Result<Collections> {
@@ -59,7 +51,7 @@ class HttpRepoImpl(
         }
     }
 
-    override suspend fun getCuratedPhotos(
+    suspend fun getCuratedPhotos(
         page: Int?,
         perPage: Int?
     ): Result<Photos> {
@@ -74,7 +66,7 @@ class HttpRepoImpl(
         }
     }
 
-    override suspend fun getSearchedPhotos(
+    suspend fun getSearchedPhotos(
         query: String,
         page: Int?,
         perPage: Int?
@@ -89,36 +81,5 @@ class HttpRepoImpl(
                 }
             }
         }
-    }
-
-    override suspend fun downloadFile(url: String) {
-        val fileName = url.substringAfterLast("/")
-        val manager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager?
-        val request = DownloadManager.Request(url.toUri())
-        request
-            .setTitle(fileName)
-            .setNotificationVisibility(
-                DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
-            )
-            .setAllowedOverMetered(true)
-            .setAllowedOverRoaming(true)
-            .setAllowedNetworkTypes(
-                DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE
-            )
-            .setRequiresCharging(false)
-            .setMimeType(
-                when {
-                    url.endsWith(".jpg") || url.endsWith(".jpeg") -> "image/jpeg"
-                    url.endsWith(".png") -> "image/png"
-                    url.endsWith(".mp4") -> "video/mp4"
-                    url.endsWith(".mp3") -> "audio/mpeg"
-                    else -> "*/*"
-                }
-            )
-            .setDestinationInExternalPublicDir(
-                Environment.DIRECTORY_DOWNLOADS,
-                fileName
-            )
-        manager?.enqueue(request)
     }
 }

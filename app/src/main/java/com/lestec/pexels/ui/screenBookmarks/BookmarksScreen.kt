@@ -1,4 +1,4 @@
-package com.lestec.pexels.ui
+package com.lestec.pexels.ui.screenBookmarks
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.Arrangement
@@ -30,7 +30,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun BookmarksScreen(
     onImageClick: (Photo) -> Unit,
     bottomBar: @Composable () -> Unit,
-    viewModel: MainViewModel = koinViewModel()
+    viewModel: BookmarksViewModel = koinViewModel()
 ) {
     val onBackDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     // Using only one viewModel, so put init (for screen) here

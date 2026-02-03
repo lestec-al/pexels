@@ -17,11 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.lestec.pexels.ui.MainViewModel
+import com.lestec.pexels.ui.screenHome.HomeViewModel
 import com.lestec.pexels.ui.theme.White
 
 @Composable
-fun FeaturedRow(viewModel: MainViewModel) {
+fun FeaturedRow(viewModel: HomeViewModel) {
     if (viewModel.featured.isNotEmpty()) {
         val shape = RoundedCornerShape(100.dp)
 

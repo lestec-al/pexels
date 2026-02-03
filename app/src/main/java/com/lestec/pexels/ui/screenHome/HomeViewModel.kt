@@ -1,7 +1,6 @@
-package com.lestec.pexels.ui
+package com.lestec.pexels.ui.screenHome
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
@@ -11,13 +10,11 @@ import com.lestec.pexels.domain.ErrorType
 import com.lestec.pexels.domain.Photo
 import com.lestec.pexels.domain.Repo
 import com.lestec.pexels.domain.Result
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.collections.plus
 
+class HomeViewModel(private val repo: Repo) : ViewModel() {
 
-class MainViewModel(private val repo: Repo) : ViewModel() {
-
-    // HOME SCREEN
     private var page = 1
 
     private var origFeatured: List<Collection> = emptyList()
@@ -29,9 +26,6 @@ class MainViewModel(private val repo: Repo) : ViewModel() {
         private set
 
     var isLoading by mutableStateOf(true)
-        private set
-
-    var progress by mutableFloatStateOf(0.0f)
         private set
 
     var photos by mutableStateOf(listOf<Photo>())
@@ -46,12 +40,6 @@ class MainViewModel(private val repo: Repo) : ViewModel() {
 
     private fun <T> loadingUtil(block: suspend () -> Result<T>) = viewModelScope.launch {
         isLoading = true
-        launch {
-            while (isLoading) {
-                delay(200)
-                progress = progress + 0.1f
-            }
-        }
         val obj = block()
         isLoading = false
         photosNotFound = obj.errorType == ErrorType.None
@@ -60,7 +48,7 @@ class MainViewModel(private val repo: Repo) : ViewModel() {
     private fun searchPhotos() {
         loadingUtil {
             page = 1
-            val obj = repo.http.getSearchedPhotos(searchValue, page, 30)
+            val obj = repo.getSearchedPhotos(searchValue, page, 30)
             val res = obj.result
             if (res != null) photos = res.photos
             isNextPageExist = res?.nextPage != null
@@ -70,7 +58,7 @@ class MainViewModel(private val repo: Repo) : ViewModel() {
 
     private fun loadFeatured() {
         loadingUtil {
-            val obj = repo.http.getFeaturedCollections(null, 7)
+            val obj = repo.getFeaturedCollections(null, 7)
             val res = obj.result
             if (res != null) {
                 origFeatured = res.collections
@@ -83,7 +71,7 @@ class MainViewModel(private val repo: Repo) : ViewModel() {
     fun loadCuratedPhotos() {
         loadingUtil {
             page = 1
-            val obj = repo.http.getCuratedPhotos(page, 30)
+            val obj = repo.getCuratedPhotos(page, 30)
             val res = obj.result
             if (res != null) photos = res.photos
             isNextPageExist = res?.nextPage != null
@@ -119,9 +107,9 @@ class MainViewModel(private val repo: Repo) : ViewModel() {
             loadingUtil {
                 page++
                 val obj = if (searchValue.isEmpty()) {
-                    repo.http.getSearchedPhotos(searchValue, page, 30)
+                    repo.getSearchedPhotos(searchValue, page, 30)
                 } else {
-                    repo.http.getCuratedPhotos(page, 30)
+                    repo.getCuratedPhotos(page, 30)
                 }
                 val res = obj.result
                 if (res != null) photos += res.photos
@@ -138,36 +126,5 @@ class MainViewModel(private val repo: Repo) : ViewModel() {
     init {
         loadFeatured()
         loadCuratedPhotos()
-    }
-
-
-    // DETAILS SCREEN
-    var isPhotoSaved by mutableStateOf(false)
-        private set
-
-    fun downloadPhoto(photo: Photo) = viewModelScope.launch {
-        repo.http.downloadFile(photo.src.original)
-    }
-
-    fun addOrDelBookmark(photo: Photo) = viewModelScope.launch {
-        if (isPhotoSaved) {
-            repo.local.deletePhoto(photo.id)
-        } else {
-            repo.local.savePhoto(photo)
-        }
-        getIfPhotoIsSaved(photo)
-    }
-
-    fun getIfPhotoIsSaved(photo: Photo) = viewModelScope.launch {
-        isPhotoSaved = repo.local.getPhoto(photo.id) != null
-    }
-
-
-    // BOOKMARKS SCREEN
-    var localPhotos by mutableStateOf(listOf<Photo>())
-        private set
-
-    fun loadLocalPhotos() = viewModelScope.launch {
-        localPhotos = repo.local.getPhotos()
     }
 }
