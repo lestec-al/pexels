@@ -20,20 +20,3 @@
 1. Get API key from [Pexels](https://www.pexels.com/api/)
 2. Create file `keys.properties` in project folder
 3. Add there `apiKey="<API_KEY>"` with your key
-
-## Project Status
-#### Done:
-- All main screens (Home, Details, Bookmarks)
-- Basic functionality: browse, search, save
-- UI according to Figma design
-- Theme support
-#### Partial / Not done (due to lack of time):
-- Caching
-- Auto-search on typing (works on button press)
-- Pagination in Bookmarks (loads all at once)
-- Russian localization
-- Complex animations
-- Toast messages
-- Image zoom gestures
-- Minor UI inconsistencies (e.g., fonts)
-- Downloading picture issues
