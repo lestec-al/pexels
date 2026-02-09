@@ -1,6 +1,9 @@
 package com.lestec.pexels.data
 
 import com.lestec.pexels.domain.Collections
+import com.lestec.pexels.domain.FileDownloader
+import com.lestec.pexels.domain.HttpRepo
+import com.lestec.pexels.domain.LocalRepo
 import com.lestec.pexels.domain.Photo
 import com.lestec.pexels.domain.Photos
 import com.lestec.pexels.domain.Repo
@@ -8,7 +11,8 @@ import com.lestec.pexels.domain.Result
 
 class RepoImpl(
     private val http: HttpRepo,
-    private val local: LocalRepo
+    private val local: LocalRepo,
+    private val files: FileDownloader
 ): Repo {
     override suspend fun getPhotos(): List<Photo> = local.getPhotos()
 
@@ -33,4 +37,6 @@ class RepoImpl(
         page: Int?,
         perPage: Int?
     ): Result<Photos> = http.getSearchedPhotos(query, page, perPage)
+
+    override suspend fun downloadFile(url: String) = files.call(url)
 }

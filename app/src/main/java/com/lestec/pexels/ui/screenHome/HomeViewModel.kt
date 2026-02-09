@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lestec.pexels.domain.Collection
-import com.lestec.pexels.domain.ErrorType
 import com.lestec.pexels.domain.Photo
 import com.lestec.pexels.domain.Repo
 import com.lestec.pexels.domain.Result
@@ -42,7 +41,7 @@ class HomeViewModel(private val repo: Repo) : ViewModel() {
         isLoading = true
         val obj = block()
         isLoading = false
-        photosNotFound = obj.errorType == ErrorType.None
+        photosNotFound = obj.errorMsg == null
     }
 
     private fun searchPhotos() {

@@ -26,6 +26,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.lestec.pexels.R
@@ -43,7 +44,6 @@ fun DetailsScreen(
     val imagePlaceholder = painterResource(R.drawable.empty_image)
     val onBackDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     val itemShape = RoundedCornerShape(12.dp)
-    // Using only one viewModel, so put init (for screen) here
     LaunchedEffect(Unit) { viewModel.getIfPhotoIsSaved(photo) }
 
     Scaffold(
@@ -72,7 +72,9 @@ fun DetailsScreen(
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onBackground
+                        color = MaterialTheme.colorScheme.onBackground,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(

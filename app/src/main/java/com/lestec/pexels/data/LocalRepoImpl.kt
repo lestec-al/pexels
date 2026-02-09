@@ -1,11 +1,12 @@
 package com.lestec.pexels.data
 
+import com.lestec.pexels.domain.LocalRepo
 import com.lestec.pexels.domain.Photo
 import com.lestec.pexels.domain.PhotoSrc
 
-class LocalRepo(private val db: RoomDb) {
+class LocalRepoImpl(private val db: RoomDb): LocalRepo {
 
-    suspend fun getPhotos() = db.dao.getPhotos().map {
+    override suspend fun getPhotos() = db.dao.getPhotos().map {
         Photo(
             id = it.id,
             width = it.width,
@@ -30,7 +31,7 @@ class LocalRepo(private val db: RoomDb) {
         )
     }
 
-    suspend fun getPhoto(id: Long): Photo? {
+    override suspend fun getPhoto(id: Long): Photo? {
         return db.dao.getPhoto(id).takeIf { it != null }?.let {
             Photo(
                 id = it.id,
@@ -57,7 +58,7 @@ class LocalRepo(private val db: RoomDb) {
         }
     }
 
-    suspend fun savePhoto(it: Photo) {
+    override suspend fun savePhoto(it: Photo) {
         val photo = PhotoLocal(
             id = it.id,
             width = it.width,
@@ -81,7 +82,7 @@ class LocalRepo(private val db: RoomDb) {
         db.dao.savePhoto(photo)
     }
 
-    suspend fun deletePhoto(id: Long) {
+    override suspend fun deletePhoto(id: Long) {
         db.dao.deletePhoto(id)
     }
 }

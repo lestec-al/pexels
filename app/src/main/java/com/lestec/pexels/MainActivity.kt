@@ -19,6 +19,7 @@ class MainActivity : ComponentActivity() {
 
         val vm = getViewModel<HomeViewModel>()
         splashscreen.setKeepOnScreenCondition { vm.isLoading }
+
         setContent { PexelsTheme { Navigation() } }
     }
 }

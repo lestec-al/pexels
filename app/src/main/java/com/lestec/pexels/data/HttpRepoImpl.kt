@@ -1,42 +1,34 @@
 package com.lestec.pexels.data
 
 import com.lestec.pexels.domain.Collections
-import com.lestec.pexels.domain.ErrorType
+import com.lestec.pexels.domain.HttpRepo
 import com.lestec.pexels.domain.Photos
 import com.lestec.pexels.domain.Result
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
-import io.ktor.client.plugins.HttpRequestTimeoutException
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpHeaders
 import io.ktor.http.isSuccess
-import kotlinx.io.IOException
 
-class HttpRepo(private val client: HttpClient) {
+class HttpRepoImpl(private val client: HttpClient): HttpRepo {
 
     private suspend inline fun <reified T> makeRequest(block: () -> HttpResponse?): Result<T> {
         return try {
             val res = block()
             if (res!!.status.isSuccess()) {
-                Result(res.body<T>(), ErrorType.None)
+                Result(res.body<T>(), null)
             } else {
-                Result(null, ErrorType.Others)
+                Result(null, "API error happened: ${res.status.description}")
             }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            Result(null, ErrorType.Network)
-        } catch (e: HttpRequestTimeoutException) {
-            e.printStackTrace()
-            Result(null, ErrorType.Network)
         } catch (e: Exception) {
             e.printStackTrace()
-            Result(null, ErrorType.Others)
+            Result(null, "API error happened: ${e.message}")
         }
     }
 
-    suspend fun getFeaturedCollections(
+    override suspend fun getFeaturedCollections(
         page: Int?,
         perPage: Int?
     ): Result<Collections> {
@@ -51,7 +43,7 @@ class HttpRepo(private val client: HttpClient) {
         }
     }
 
-    suspend fun getCuratedPhotos(
+    override suspend fun getCuratedPhotos(
         page: Int?,
         perPage: Int?
     ): Result<Photos> {
@@ -66,7 +58,7 @@ class HttpRepo(private val client: HttpClient) {
         }
     }
 
-    suspend fun getSearchedPhotos(
+    override suspend fun getSearchedPhotos(
         query: String,
         page: Int?,
         perPage: Int?

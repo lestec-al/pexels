@@ -33,7 +33,6 @@ fun BookmarksScreen(
     viewModel: BookmarksViewModel = koinViewModel()
 ) {
     val onBackDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
-    // Using only one viewModel, so put init (for screen) here
     LaunchedEffect(Unit) { viewModel.loadLocalPhotos() }
 
     Scaffold(
