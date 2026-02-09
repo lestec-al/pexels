@@ -33,7 +33,7 @@ import com.lestec.pexels.ui.theme.White
 
 @Composable
 fun ImagesGrid(
-    onImageClick: (Photo) -> Unit,
+    onImageClick: (Long) -> Unit,
     modifier: Modifier,
     atBottom: (Boolean) -> Unit,
     isShowAutor: Boolean,
@@ -61,7 +61,7 @@ fun ImagesGrid(
                         shape = itemShape
                     )
                     .clip(itemShape)
-                    .clickable { onImageClick(it) },
+                    .clickable { onImageClick(it.id) },
                 contentAlignment = Alignment.BottomCenter
             ) {
                 AsyncImage(

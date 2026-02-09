@@ -14,9 +14,9 @@ class RepoImpl(
     private val local: LocalRepo,
     private val files: FileDownloader
 ): Repo {
-    override suspend fun getPhotos(): List<Photo> = local.getPhotos()
+    override suspend fun getLocalPhotos(): List<Photo> = local.getPhotos()
 
-    override suspend fun getPhoto(id: Long): Photo? = local.getPhoto(id)
+    override suspend fun getLocalPhoto(id: Long): Photo? = local.getPhoto(id)
 
     override suspend fun savePhoto(photo: Photo) = local.savePhoto(photo)
 
@@ -37,6 +37,8 @@ class RepoImpl(
         page: Int?,
         perPage: Int?
     ): Result<Photos> = http.getSearchedPhotos(query, page, perPage)
+
+    override suspend fun getWebPhoto(id: Long) = http.getPhoto(id)
 
     override suspend fun downloadFile(url: String) = files.call(url)
 }

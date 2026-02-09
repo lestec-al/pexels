@@ -1,5 +1,7 @@
 package com.lestec.pexels.ui.screenHome.components
 
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -10,9 +12,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopSearchBar
 import androidx.compose.material3.rememberSearchBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.lestec.pexels.R
 import com.lestec.pexels.ui.screenHome.HomeViewModel
 import com.lestec.pexels.ui.theme.DarkGrayOnLight
@@ -24,6 +28,9 @@ fun SearchField(viewModel: HomeViewModel) {
 
     TopSearchBar(
         state = rememberSearchBarState(),
+        modifier = Modifier
+            .padding(horizontal = 18.dp)
+            .fillMaxWidth(),
         inputField = {
             SearchBarDefaults.InputField(
                 query = viewModel.searchValue,
@@ -52,6 +59,7 @@ fun SearchField(viewModel: HomeViewModel) {
                         }
                     }
                 },
+                modifier = Modifier.fillMaxWidth(),
                 colors = inputFieldColors(
                     focusedContainerColor = MaterialTheme.colorScheme.surface,
                     unfocusedContainerColor = MaterialTheme.colorScheme.surface,

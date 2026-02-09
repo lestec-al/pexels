@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
-import com.lestec.pexels.domain.Photo
 import com.lestec.pexels.ui.components.BottomBar
 import com.lestec.pexels.ui.screenBookmarks.BookmarksScreen
 import com.lestec.pexels.ui.screenDetails.DetailsScreen
@@ -13,7 +12,7 @@ import com.lestec.pexels.ui.screenHome.HomeScreen
 
 internal data object HomeRoute
 internal data object BookmarksRoute
-internal data class DetailsRoute(val it: Photo)
+internal data class DetailsRoute(val photoId: Long)
 
 @Composable
 fun Navigation() {
@@ -48,7 +47,7 @@ fun Navigation() {
                     }
                 )
             }
-            entry<DetailsRoute> { DetailsScreen(photo = it.it) }
+            entry<DetailsRoute> { DetailsScreen(photoId = it.photoId) }
         }
     )
 }

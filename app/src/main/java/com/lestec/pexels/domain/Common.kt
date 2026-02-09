@@ -20,6 +20,7 @@ interface HttpRepo {
         page: Int?,
         perPage: Int?
     ): Result<Photos>
+    suspend fun getPhoto(id: Long): Result<Photo>
 }
 
 interface FileDownloader {
@@ -27,8 +28,8 @@ interface FileDownloader {
 }
 
 interface Repo {
-    suspend fun getPhotos(): List<Photo>
-    suspend fun getPhoto(id: Long): Photo?
+    suspend fun getLocalPhotos(): List<Photo>
+    suspend fun getLocalPhoto(id: Long): Photo?
     suspend fun savePhoto(photo: Photo)
     suspend fun deletePhoto(id: Long)
 
@@ -39,6 +40,7 @@ interface Repo {
         page: Int?,
         perPage: Int?
     ): Result<Photos>
+    suspend fun getWebPhoto(id: Long): Result<Photo>
 
     suspend fun downloadFile(url: String)
 }

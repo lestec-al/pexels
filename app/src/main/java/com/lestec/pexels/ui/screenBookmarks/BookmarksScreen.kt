@@ -21,14 +21,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.lestec.pexels.R
-import com.lestec.pexels.domain.Photo
 import com.lestec.pexels.ui.components.ImagesGrid
 import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookmarksScreen(
-    onImageClick: (Photo) -> Unit,
+    onImageClick: (Long) -> Unit,
     bottomBar: @Composable () -> Unit,
     viewModel: BookmarksViewModel = koinViewModel()
 ) {

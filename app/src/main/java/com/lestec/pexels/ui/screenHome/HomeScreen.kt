@@ -18,7 +18,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.lestec.pexels.R
-import com.lestec.pexels.domain.Photo
 import com.lestec.pexels.ui.components.ImagesGrid
 import com.lestec.pexels.ui.screenHome.components.FeaturedRow
 import com.lestec.pexels.ui.screenHome.components.SearchField
@@ -26,7 +25,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeScreen(
-    onImageClick: (Photo) -> Unit,
+    onImageClick: (Long) -> Unit,
     bottomBar: @Composable () -> Unit,
     viewModel: HomeViewModel = koinViewModel()
 ) {

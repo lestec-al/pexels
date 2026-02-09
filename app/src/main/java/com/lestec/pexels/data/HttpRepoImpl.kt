@@ -2,6 +2,7 @@ package com.lestec.pexels.data
 
 import com.lestec.pexels.domain.Collections
 import com.lestec.pexels.domain.HttpRepo
+import com.lestec.pexels.domain.Photo
 import com.lestec.pexels.domain.Photos
 import com.lestec.pexels.domain.Result
 import io.ktor.client.HttpClient
@@ -71,6 +72,14 @@ class HttpRepoImpl(private val client: HttpClient): HttpRepo {
                     if (page != null) parameters.append("page", "$page")
                     if (perPage != null) parameters.append("per_page", "$perPage")
                 }
+            }
+        }
+    }
+
+    override suspend fun getPhoto(id: Long): Result<Photo> {
+        return makeRequest {
+            client.get(Consts.getPhotoAddress(id)) {
+                header(HttpHeaders.Authorization, Consts.API_KEY)
             }
         }
     }

@@ -15,6 +15,6 @@ class BookmarksViewModel(private val repo: Repo) : ViewModel() {
         private set
 
     fun loadLocalPhotos() = viewModelScope.launch {
-        localPhotos = repo.getPhotos()
+        localPhotos = repo.getLocalPhotos()
     }
 }

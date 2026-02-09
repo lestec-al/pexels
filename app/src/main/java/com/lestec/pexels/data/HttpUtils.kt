@@ -19,4 +19,5 @@ object Consts {
     const val FEATURED = "$BASE_URL/collections/featured"
     const val CURATED = "$BASE_URL/curated"
     const val SEARCH = "$BASE_URL/search"
+    fun getPhotoAddress(id: Long) = "$BASE_URL/photos/$id"
 }
