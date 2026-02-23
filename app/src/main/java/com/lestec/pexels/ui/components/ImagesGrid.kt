@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
@@ -14,10 +15,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,20 +32,16 @@ import com.lestec.pexels.ui.theme.White
 fun ImagesGrid(
     onImageClick: (Long) -> Unit,
     modifier: Modifier,
-    atBottom: (Boolean) -> Unit,
     isShowAutor: Boolean,
-    photos: List<Photo>
+    photos: List<Photo>,
+    gridState: LazyStaggeredGridState = rememberLazyStaggeredGridState()
 ) {
     val itemShape = RoundedCornerShape(12.dp)
     val imagePlaceholder = painterResource(R.drawable.empty_image)
 
-    val state = rememberLazyStaggeredGridState()
-    val isAtBottom by remember { derivedStateOf { !state.canScrollForward } }
-    LaunchedEffect(isAtBottom) { atBottom(isAtBottom) }
-
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
-        state = state,
+        state = gridState,
         modifier = modifier.padding(top = 24.dp, start = 24.dp, end = 24.dp),
         verticalItemSpacing = 17.dp,
         horizontalArrangement = Arrangement.spacedBy(17.dp)

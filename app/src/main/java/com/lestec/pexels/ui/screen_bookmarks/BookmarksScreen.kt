@@ -75,7 +75,6 @@ fun BookmarksScreen(
             ImagesGrid(
                 onImageClick = onImageClick,
                 modifier = Modifier.padding(paddingValues),
-                atBottom = {},
                 isShowAutor = true,
                 photos = viewModel.localPhotos
             )

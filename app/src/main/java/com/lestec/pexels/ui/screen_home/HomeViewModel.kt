@@ -1,5 +1,7 @@
 package com.lestec.pexels.ui.screen_home
 
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -36,12 +38,25 @@ class HomeViewModel(private val repo: Repo) : ViewModel() {
     var photosNotFound by mutableStateOf(false)
         private set
 
+    val featuredListState = LazyListState()
+
+    val photosGridState = LazyStaggeredGridState()
+
 
     private fun <T> loadingUtil(block: suspend () -> Result<T>) = viewModelScope.launch {
         isLoading = true
         val obj = block()
         isLoading = false
         photosNotFound = obj.errorMsg == null
+    }
+
+    private fun resetScrollStates() {
+        if (featured.isNotEmpty()) {
+            viewModelScope.launch { featuredListState.scrollToItem(0) }
+        }
+        if (photos.isNotEmpty()) {
+            viewModelScope.launch { photosGridState.scrollToItem(0) }
+        }
     }
 
     private fun searchPhotos() {
@@ -67,7 +82,7 @@ class HomeViewModel(private val repo: Repo) : ViewModel() {
         }
     }
 
-    fun loadCuratedPhotos() {
+    private fun loadCuratedPhotos() {
         loadingUtil {
             page = 1
             val obj = repo.getCuratedPhotos(page, 30)
@@ -78,6 +93,10 @@ class HomeViewModel(private val repo: Repo) : ViewModel() {
         }
     }
 
+    fun updateSearchValue(it: String) {
+        searchValue = it
+    }
+
     fun selectFeatured(c: String) {
         updateSearchValue(c)
         featured = if (c.isNotEmpty()) {
@@ -86,10 +105,7 @@ class HomeViewModel(private val repo: Repo) : ViewModel() {
         } else {
             origFeatured.map { it.title }
         }
-    }
-
-    fun updateSearchValue(it: String) {
-        searchValue = it
+        resetScrollStates()
     }
 
     fun onSearch(it: String) {
@@ -98,11 +114,12 @@ class HomeViewModel(private val repo: Repo) : ViewModel() {
         } else {
             updateSearchValue(it)
             searchPhotos()
+            resetScrollStates()
         }
     }
 
     fun addPhotos(isAtBottom: Boolean) {
-        if (isAtBottom && photos.isNotEmpty() && isNextPageExist) {
+        if (isAtBottom && photos.isNotEmpty() && isNextPageExist && !isLoading) {
             loadingUtil {
                 page++
                 val obj = if (searchValue.isEmpty()) {
@@ -120,6 +137,7 @@ class HomeViewModel(private val repo: Repo) : ViewModel() {
 
     fun reloadPhotos() {
         if (photosNotFound) loadCuratedPhotos() else searchPhotos()
+        resetScrollStates()
     }
 
     init {

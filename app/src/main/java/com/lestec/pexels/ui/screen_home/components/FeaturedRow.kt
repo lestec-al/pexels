@@ -25,7 +25,7 @@ fun FeaturedRow(viewModel: HomeViewModel) {
     if (viewModel.featured.isNotEmpty()) {
         val shape = RoundedCornerShape(100.dp)
 
-        LazyRow {
+        LazyRow(state = viewModel.featuredListState) {
             item { Spacer(Modifier.width(18.5.dp)) }
             items(items = viewModel.featured) {
                 val isSelected = it.lowercase() == viewModel.searchValue.lowercase()

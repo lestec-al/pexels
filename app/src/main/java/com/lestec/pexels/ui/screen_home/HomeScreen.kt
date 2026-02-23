@@ -2,24 +2,21 @@ package com.lestec.pexels.ui.screen_home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.lestec.pexels.R
 import com.lestec.pexels.ui.components.ImagesGrid
 import com.lestec.pexels.ui.screen_home.components.FeaturedRow
+import com.lestec.pexels.ui.screen_home.components.NoDataPlaceholder
 import com.lestec.pexels.ui.screen_home.components.SearchField
 import org.koin.androidx.compose.koinViewModel
 
@@ -29,6 +26,10 @@ fun HomeScreen(
     bottomBar: @Composable () -> Unit,
     viewModel: HomeViewModel = koinViewModel()
 ) {
+    // UI must be dumb (only show), but make that logic in viewModel makes it too complicated
+    val isAtBottom by remember { derivedStateOf { !viewModel.photosGridState.canScrollForward } }
+    LaunchedEffect(isAtBottom) { viewModel.addPhotos(isAtBottom) }
+
     Scaffold(
         topBar = {
             Column(
@@ -50,37 +51,18 @@ fun HomeScreen(
         bottomBar = bottomBar
     ) { paddingValues ->
         if (viewModel.photos.isEmpty() && !viewModel.isLoading) {
-            Column(
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                if (viewModel.photosNotFound) {
-                    Text(text = stringResource(R.string.no_results_found))
-                } else {
-                    Icon(
-                        painter = painterResource(R.drawable.no_network_icon),
-                        contentDescription = null
-                    )
-                }
-                TextButton(onClick = viewModel::reloadPhotos) {
-                    Text(
-                        text = stringResource(
-                            if (viewModel.photosNotFound) R.string.explore else R.string.try_again
-                        ),
-                        style = MaterialTheme.typography.titleLarge
-                    )
-                }
-            }
+            NoDataPlaceholder(
+                reloadPhotos = viewModel::reloadPhotos,
+                paddingValues = paddingValues,
+                photosNotFound = viewModel.photosNotFound
+            )
         } else {
             ImagesGrid(
                 onImageClick = onImageClick,
                 modifier = Modifier.padding(paddingValues),
-                atBottom = viewModel::addPhotos,
                 isShowAutor = false,
-                photos = viewModel.photos
+                photos = viewModel.photos,
+                gridState = viewModel.photosGridState
             )
         }
     }
