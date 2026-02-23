@@ -1,4 +1,4 @@
-package com.lestec.pexels.ui.screenHome.components
+package com.lestec.pexels.ui.screen_home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.lestec.pexels.ui.screenHome.HomeViewModel
+import com.lestec.pexels.ui.screen_home.HomeViewModel
 import com.lestec.pexels.ui.theme.White
 
 @Composable

@@ -1,4 +1,4 @@
-package com.lestec.pexels.ui.screenHome
+package com.lestec.pexels.ui.screen_home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,8 +19,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.lestec.pexels.R
 import com.lestec.pexels.ui.components.ImagesGrid
-import com.lestec.pexels.ui.screenHome.components.FeaturedRow
-import com.lestec.pexels.ui.screenHome.components.SearchField
+import com.lestec.pexels.ui.screen_home.components.FeaturedRow
+import com.lestec.pexels.ui.screen_home.components.SearchField
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

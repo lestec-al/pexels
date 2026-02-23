@@ -1,4 +1,4 @@
-package com.lestec.pexels.ui.screenHome
+package com.lestec.pexels.ui.screen_home
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

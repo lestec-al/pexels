@@ -6,9 +6,9 @@ import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import com.lestec.pexels.ui.components.BottomBar
-import com.lestec.pexels.ui.screenBookmarks.BookmarksScreen
-import com.lestec.pexels.ui.screenDetails.DetailsScreen
-import com.lestec.pexels.ui.screenHome.HomeScreen
+import com.lestec.pexels.ui.screen_bookmarks.BookmarksScreen
+import com.lestec.pexels.ui.screen_details.DetailsScreen
+import com.lestec.pexels.ui.screen_home.HomeScreen
 
 internal data object HomeRoute
 internal data object BookmarksRoute

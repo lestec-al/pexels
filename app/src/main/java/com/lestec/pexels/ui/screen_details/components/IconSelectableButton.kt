@@ -1,4 +1,4 @@
-package com.lestec.pexels.ui.screenDetails.components
+package com.lestec.pexels.ui.screen_details.components
 
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.material3.FilledIconButton

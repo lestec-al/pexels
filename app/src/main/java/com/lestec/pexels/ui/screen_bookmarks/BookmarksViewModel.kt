@@ -1,4 +1,4 @@
-package com.lestec.pexels.ui.screenBookmarks
+package com.lestec.pexels.ui.screen_bookmarks
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

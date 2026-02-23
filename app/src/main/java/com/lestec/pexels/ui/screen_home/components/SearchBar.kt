@@ -1,4 +1,4 @@
-package com.lestec.pexels.ui.screenHome.components
+package com.lestec.pexels.ui.screen_home.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -18,7 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.lestec.pexels.R
-import com.lestec.pexels.ui.screenHome.HomeViewModel
+import com.lestec.pexels.ui.screen_home.HomeViewModel
 import com.lestec.pexels.ui.theme.DarkGrayOnLight
 
 @OptIn(ExperimentalMaterial3Api::class)

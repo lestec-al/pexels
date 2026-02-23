@@ -1,4 +1,4 @@
-package com.lestec.pexels.ui.screenDetails
+package com.lestec.pexels.ui.screen_details
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

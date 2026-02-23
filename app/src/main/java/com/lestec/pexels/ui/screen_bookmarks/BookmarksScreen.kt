@@ -1,4 +1,4 @@
-package com.lestec.pexels.ui.screenBookmarks
+package com.lestec.pexels.ui.screen_bookmarks
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.Arrangement

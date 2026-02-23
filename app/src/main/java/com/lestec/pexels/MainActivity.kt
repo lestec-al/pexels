@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.lestec.pexels.ui.Navigation
-import com.lestec.pexels.ui.screenHome.HomeViewModel
+import com.lestec.pexels.ui.screen_home.HomeViewModel
 import com.lestec.pexels.ui.theme.PexelsTheme
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 

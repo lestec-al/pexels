@@ -1,4 +1,4 @@
-package com.lestec.pexels.ui.screenDetails
+package com.lestec.pexels.ui.screen_details
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.background
@@ -33,8 +33,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.lestec.pexels.R
-import com.lestec.pexels.ui.screenDetails.components.IconSelectableButton
-import com.lestec.pexels.ui.screenDetails.components.IconTextButton
+import com.lestec.pexels.ui.screen_details.components.IconSelectableButton
+import com.lestec.pexels.ui.screen_details.components.IconTextButton
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)

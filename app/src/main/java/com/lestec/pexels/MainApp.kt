@@ -11,9 +11,9 @@ import com.lestec.pexels.domain.FileDownloader
 import com.lestec.pexels.domain.HttpRepo
 import com.lestec.pexels.domain.LocalRepo
 import com.lestec.pexels.domain.Repo
-import com.lestec.pexels.ui.screenBookmarks.BookmarksViewModel
-import com.lestec.pexels.ui.screenDetails.DetailsViewModel
-import com.lestec.pexels.ui.screenHome.HomeViewModel
+import com.lestec.pexels.ui.screen_bookmarks.BookmarksViewModel
+import com.lestec.pexels.ui.screen_details.DetailsViewModel
+import com.lestec.pexels.ui.screen_home.HomeViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

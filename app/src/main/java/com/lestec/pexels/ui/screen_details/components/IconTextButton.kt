@@ -1,4 +1,4 @@
-package com.lestec.pexels.ui.screenDetails.components
+package com.lestec.pexels.ui.screen_details.components
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
